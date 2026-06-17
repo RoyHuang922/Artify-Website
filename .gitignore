@@ -22,3 +22,6 @@ github-recovery-codes.txt
 
 # local Claude Code tooling, skills, and launch config (not part of the website)
 /.claude/
+
+# stray QA artifacts from a shell-escaping bug
+qa-shots${name}*.png
