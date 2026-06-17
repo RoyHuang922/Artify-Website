@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# misc
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# NEVER commit credentials — move this file out of the project folder
+github-recovery-codes.txt
+
+# raw source material (large, not served by the site)
+/asset-sources/
+/footage/
+
+# QA screenshot artifacts
+/qa-shots/
+
+# local Claude Code tooling, skills, and launch config (not part of the website)
+/.claude/

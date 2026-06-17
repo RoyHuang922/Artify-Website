@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  /* Artify Madison design tokens: dark cinematic, royal blue accent */
+  --color-bg: #05080f;
+  --color-surface: #0b1120;
+  --color-raised: #101a30;
+  --color-line: rgba(148, 170, 220, 0.14);
+  --color-ink: #f2f5fc;
+  --color-dim: #93a3c2;
+  --color-faint: #7080a0;
+  --color-blue: #205ce9;
+  --color-electric: #4e7fff;
+  --color-gold: #f0b23e;
+
+  --font-display: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-blue);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-electric);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- marquee strips ---- */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-left .marquee-track { animation: marquee-left var(--marquee-duration, 48s) linear infinite; }
+.marquee-right .marquee-track { animation: marquee-right var(--marquee-duration, 48s) linear infinite; }
+
+/* ---- intro overlay: hidden before first paint for repeat/reduced/bot visits ---- */
+html.preloader-skip #preloader {
+  display: none !important;
+}
+
+/* ---- hero: viewport-fixed skyline backdrop (clipped to the hero section) ---- */
+.hero-skyline-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* gradient keeps the headline area dark for contrast; the skyline panel sits at
+     the very bottom and (its top/side edges pre-faded) melts into the page. */
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(5, 8, 15, 0.85) 0%,
+      rgba(5, 8, 15, 0.55) 38%,
+      rgba(5, 8, 15, 0) 66%
+    ),
+    url('/images/hero-skyline.webp');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center bottom;
+  background-size: 100% 100%, 100% auto;
+}
+@media (max-width: 767px) {
+  .hero-skyline-bg {
+    /* full-width keeps the whole wordmark readable; the strip anchors the bottom */
+    background-size: 100% 100%, 100% auto;
+    background-position: center top, center bottom;
+  }
+}
+
+/* ---- horizontal gallery: hide scrollbar while keeping scroll ---- */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---- ambient glow orbs ---- */
+.glow-blue {
+  background: radial-gradient(circle, rgba(32, 92, 233, 0.32) 0%, rgba(32, 92, 233, 0) 70%);
+}
+
+/* ---- thin hairline used by chapter headers ---- */
+.hairline {
+  background: linear-gradient(90deg, var(--color-line), transparent);
+  height: 1px;
+}
+
+/* ---- subtle noise to avoid flat-black banding ---- */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- reduced motion: kill decorative animation ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
