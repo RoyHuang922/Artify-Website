@@ -11,7 +11,7 @@ const pathSteps: PathStep[] = [
   {
     step: 'Step 1',
     title: 'Sign on and place your deposit',
-    text: 'A refundable $1,800 deposit secures your kit: the Apolosign screen, the DNP photo printer, and an initial 700 print supply. It is a security deposit, not a purchase. The equipment stays Artify’s, and the deposit comes back to you at the end.',
+    text: 'A refundable $1,800 deposit secures your kit: the Apolosign screen, the DNP photo printer, and an initial 700 print supply. It is a security deposit, not a purchase. The equipment stays Artify’s, and the deposit comes back to you if the hardware is returned.',
   },
   {
     step: 'Step 2',
@@ -59,7 +59,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: 'How many venues or events can I run?',
-    a: 'As many as you can build. The platform scales across locations: run permanent installs at venues or popups at events, fairs, and seasonal activations.',
+    a: 'As many as you can build. The platform scales across locations: run permanent installs at venues.',
   },
   {
     q: 'How do I become a distributor?',

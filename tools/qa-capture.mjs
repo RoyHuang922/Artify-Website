@@ -64,6 +64,11 @@ await new Promise((r) => setTimeout(r, +(process.env.NAV_WAIT || 4000))); // loa
 await send('Runtime.evaluate', {
   expression: `document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0, ${+scrollY});`,
 });
+// optional: run a JS snippet (e.g. open a menu) before the screenshot
+if (process.env.EVAL) {
+  await send('Runtime.evaluate', { expression: process.env.EVAL, awaitPromise: true });
+  await new Promise((r) => setTimeout(r, 400));
+}
 await new Promise((r) => setTimeout(r, +settleMs)); // let scroll-linked animation settle
 const shot = await send('Page.captureScreenshot', { format: 'png' });
 writeFileSync(outfile, Buffer.from(shot.result.data, 'base64'));
